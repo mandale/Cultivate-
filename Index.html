@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cultivate — The Love You Deserve</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–red:       #7C1C1C;
+–red-deep:  #4A0C0C;
+–red-mid:   #6B1515;
+–gold:      #C9A85C;
+–gold-soft: #E2C97E;
+–cream:     #F5F1EB;
+–white:     #FAF6F0;
+–muted:     rgba(250,240,225,0.55);
+–border:    rgba(201,168,92,0.22);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+background: var(–red);
+color: var(–white);
+font-family: ‘Lato’, sans-serif;
+font-weight: 300;
+overflow-x: hidden;
+}
+
+/* ── PARTICLE TEXTURE ── */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image:
+radial-gradient(circle, rgba(250,240,225,0.08) 1px, transparent 1px);
+background-size: 38px 38px;
+pointer-events: none;
+z-index: 1;
+}
+
+/* Warm vignette over everything */
+body::after {
+content: ‘’;
+position: fixed;
+inset: 0;
+background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(74,12,12,0.35) 100%);
+pointer-events: none;
+z-index: 2;
+}
+
+/* All content sits above overlays */
+nav, section, .full-section, footer { position: relative; z-index: 10; }
+
+/* ── NAV ── */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+padding: 1.6rem 2rem;
+display: flex;
+justify-content: center;
+background: transparent;
+opacity: 0;
+animation: softFade 3s 1s ease forwards;
+}
+
+.nav-inner {
+font-family: ‘Lato’, sans-serif;
+font-weight: 400;
+font-size: 0.58rem;
+letter-spacing: 0.45em;
+text-transform: uppercase;
+color: rgba(201,168,92,0.6);
+}
+
+/* ── SHARED SECTION BASE ── */
+.full-section {
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding: 7rem 2rem;
+position: relative;
+}
+
+/* ── HERO ── */
+#hero {
+background: var(–red-deep);
+}
+
+/* Hero headline */
+.hero-title {
+font-family: ‘Playfair Display’, serif;
+font-weight: 400;
+font-size: clamp(3.5rem, 10vw, 8rem);
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–white);
+line-height: 1;
+display: block;
+opacity: 0;
+animation: wordRise 3s 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Gold rule under title */
+.hero-rule {
+width: 0;
+height: 1px;
+background: linear-gradient(to right, transparent, var(–gold), transparent);
+margin: 1.8rem auto;
+opacity: 0.5;
+animation: ruleGrow 2.5s 4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tagline */
+.hero-tagline {
+opacity: 0;
+animation: wordRise 2.5s 5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-tagline-main {
+display: block;
+font-family: ‘Playfair Display’, serif;
+font-style: italic;
+font-size: clamp(1rem, 2vw, 1.4rem);
+font-weight: 400;
+color: rgba(250,240,225,0.75);
+letter-spacing: 0.06em;
+margin-bottom: 0.6rem;
+}
+
+.hero-tagline-sub {
+display: block;
+font-family: ‘Lato’, sans-serif;
+font-weight: 400;
+font-size: 0.58rem;
+letter-spacing: 0.38em;
+text-transform: uppercase;
+color: rgba(201,168,92,0.55);
+}
+
+/* CTA button — pill style like your site */
+.btn-pill {
+display: inline-block;
+margin-top: 3rem;
+padding: 1rem 2.5rem;
+border: 1px solid rgba(250,240,225,0.3);
+border-radius: 50px;
+font-family: ‘Lato’, sans-serif;
+font-weight: 400;
+font-size: 0.6rem;
+letter-spacing: 0.4em;
+text-transform: uppercase;
+color: var(–white);
+background: transparent;
+cursor: pointer;
+transition: background 0.8s, border-color 0.8s, color 0.8s;
+text-decoration: none;
+}
+
+.btn-pill:hover {
+background: rgba(250,240,225,0.1);
+border-color: var(–gold);
+color: var(–gold-soft);
+}
+
+/* Gold pill variant */
+.btn-pill-gold {
+border-color: rgba(201,168,92,0.5);
+color: var(–gold-soft);
+}
+
+.btn-pill-gold:hover {
+background: rgba(201,168,92,0.12);
+}
+
+/* Hero form section */
+.hero-form {
+opacity: 0;
+animation: wordRise 2.5s 6.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+width: 100%;
+max-width: 400px;
+margin-top: 3rem;
+}
+
+.form-eyebrow {
+font-family: ‘Lato’, sans-serif;
+font-weight: 400;
+font-size: 0.55rem;
+letter-spacing: 0.38em;
+text-transform: uppercase;
+color: rgba(201,168,92,0.5);
+display: block;
+margin-bottom: 1.2rem;
+}
+
+.form-row {
+display: flex;
+border: 1px solid rgba(250,240,225,0.2);
+background: rgba(0,0,0,0.2);
+border-radius: 2px;
+transition: border-color 0.8s;
+}
+
+.form-row:focus-within { border-color: rgba(201,168,92,0.5); }
+
+.form-row input {
+flex: 1;
+background: transparent;
+border: none;
+outline: none;
+padding: 0.9rem 1.2rem;
+font-family: ‘Playfair Display’, serif;
+font-style: italic;
+font-size: 0.95rem;
+color: var(–white);
+}
+
+.form-row input::placeholder { color: rgba(250,240,225,0.25); }
+
+.form-row button {
+background: var(–gold);
+border: none;
+padding: 0.9rem 1.4rem;
+font-family: ‘Lato’, sans-serif;
+font-weight: 400;
+font-size: 0.55rem;
+letter-spacing: 0.28em;
+text-transform: uppercase;
+color: var(–red-deep);
+cursor: pointer;
+transition: background 0.8s;
+white-space: nowrap;
+border-radius: 0 2px 2px 0;
+}
+
+.form-row button:hover { background: var(–gold-soft); }
+
+.form-note {
+margin-top: 0.9rem;
+font-family: ‘Playfair Display’, serif;
+font-style: italic;
+font-size: 0.8rem;
+color: rgba(250,240,225,0.22);
+text-align: center;
+}
+
+.success-msg {
+display: none;
+padding: 1.4rem;
+border: 1px solid var(–border);
+animation: wordRise 1.5s ease both;
+}
+
+.success-msg p {
+font-family: ‘Playfair Display’, serif;
+font-style: italic;
+font-size: 1.05rem;
+color: var(–white);
+margin-bottom: 0.4rem;
+}
+
+.success-msg span {
+font-size: 0.55rem;
+letter-spacing: 0.25em;
+text-transform: uppercase;
+color: rgba(201,168,92,0.55);
+}
+
+/* Scroll nudge */
+.hero-scroll {
+opacity: 0;
+animation: wordRise 2s 9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+margin-top: 4rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.9rem;
+}
+
+.hero-scroll span {
+font-family: ‘Lato’, sans-serif;
+font-size: 0.5rem;
+letter-spacing: 0.42em;
+text-transform: uppercase;
+color: rgba(201,168,92,0.35);
+}
+
+.scroll-stem {
+width: 1px;
+height: 0;
+background: linear-gradient(to bottom, rgba(201,168,92,0.45), transparent);
+animation: stemGrow 2.5s 11s ease forwards;
+}
+
+/* ── SECTION A — POEM ── */
+#poem {
+background: var(–red-mid);
+}
+
+.section-eyebrow {
+font-family: ‘Lato’, sans-serif;
+font-weight: 400;
+font-size: 0.55rem;
+letter-spacing: 0.45em;
+text-transform: uppercase;
+color: rgba(201,168,92,0.5);
+display: block;
+margin-bottom: 3.5rem;
+}
+
+.section-heading {
+font-family: ‘Playfair Display’, serif;
+font-weight: 400;
+font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(–white);
+line-height: 1.4;
+max-width: 700px;
+margin-bottom: 3rem;
+}
+
+.section-heading em {
+font-style: italic;
+text-transform: none;
+color: var(–gold-soft);
+letter-spacing: 0.04em;
+}
+
+.section-body {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1rem, 1.6vw, 1.2rem);
+font-weight: 400;
+line-height: 2.2;
+color: rgba(250,240,225,0.6);
+max-width: 540px;
+margin-bottom: 3.5rem;
+}
+
+/* Gold thin divider */
+.gold-line {
+width: 60px;
+height: 1px;
+background: linear-gradient(to right, transparent, var(–gold), transparent);
+margin: 0 auto 3.5rem;
+opacity: 0.4;
+}
+
+/* ── SECTION B — IMAGE BREAK ── */
+#image-break {
+min-height: 65vh;
+background:
+radial-gradient(ellipse at 30% 70%, rgba(74,12,12,0.95) 0%, transparent 55%),
+radial-gradient(ellipse at 75% 35%, rgba(201,168,92,0.08) 0%, transparent 50%),
+linear-gradient(160deg, #3A0808 0%, #6B1515 45%, #2A0A0A 100%);
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 6rem 2rem;
+}
+
+#image-break .caption {
+text-align: center;
+}
+
+#image-break .caption p {
+font-family: ‘Playfair Display’, serif;
+font-style: italic;
+font-size: clamp(1.2rem, 2.5vw, 1.9rem);
+font-weight: 400;
+color: rgba(250,240,225,0.65);
+line-height: 1.8;
+max-width: 460px;
+margin: 0 auto 1.5rem;
+}
+
+#image-break .caption span {
+font-family: ‘Lato’, sans-serif;
+font-size: 0.52rem;
+letter-spacing: 0.42em;
+text-transform: uppercase;
+color: rgba(201,168,92,0.4);
+}
+
+/* ── SECTION C — THREE ── */
+#three {
+background: var(–red-deep);
+padding: 9rem 2rem;
+}
+
+.three-list {
+width: 100%;
+max-width: 640px;
+margin: 0 auto;
+}
+
+.three-item {
+padding: 3.5rem 0;
+border-bottom: 1px solid rgba(201,168,92,0.12);
+text-align: center;
+}
+
+.three-item:last-child { border-bottom: none; }
+
+.three-num {
+font-family: ‘Lato’, sans-serif;
+font-size: 0.52rem;
+letter-spacing: 0.42em;
+text-transform: uppercase;
+color: rgba(201,168,92,0.45);
+display: block;
+margin-bottom: 1.5rem;
+}
+
+.three-title {
+font-family: ‘Playfair Display’, serif;
+font-weight: 400;
+font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(–white);
+margin-bottom: 1.5rem;
+line-height: 1.3;
+}
+
+.three-title em {
+font-style: italic;
+text-transform: none;
+color: var(–gold-soft);
+letter-spacing: 0.04em;
+}
+
+.three-body {
+font-family: ‘Playfair Display’, serif;
+font-style: italic;
+font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+font-weight: 400;
+line-height: 2.1;
+color: rgba(250,240,225,0.5);
+max-width: 440px;
+margin: 0 auto;
+}
+
+/* ── SECTION D — MANIFESTO ── */
+#manifesto {
+background: var(–red-mid);
+}
+
+.manifesto-quote {
+font-family: ‘Playfair Display’, serif;
+font-style: italic;
+font-size: clamp(1.3rem, 2.5vw, 2rem);
+font-weight: 400;
+line-height: 1.85;
+color: rgba(250,240,225,0.8);
+max-width: 620px;
+margin: 0 auto 2.5rem;
+}
+
+.manifesto-attr {
+font-family: ‘Lato’, sans-serif;
+font-size: 0.52rem;
+letter-spacing: 0.42em;
+text-transform: uppercase;
+color: rgba(201,168,92,0.45);
+}
+
+/* ── SECTION E — CTA ── */
+#cta {
+background: var(–red-deep);
+}
+
+/* ── FOOTER ── */
+footer {
+position: relative;
+z-index: 10;
+padding: 3rem 2rem;
+text-align: center;
+border-top: 1px solid rgba(201,168,92,0.12);
+background: rgba(0,0,0,0.15);
+}
+
+.footer-brand {
+font-family: ‘Playfair Display’, serif;
+font-style: italic;
+font-size: 1rem;
+color: rgba(201,168,92,0.6);
+display: block;
+margin-bottom: 1.2rem;
+}
+
+.footer-links {
+display: flex;
+justify-content: center;
+gap: 2.5rem;
+margin-bottom: 1.5rem;
+}
+
+.footer-links a {
+font-family: ‘Lato’, sans-serif;
+font-size: 0.5rem;
+letter-spacing: 0.28em;
+text-transform: uppercase;
+color: rgba(250,240,225,0.25);
+text-decoration: none;
+transition: color 0.8s;
+}
+
+.footer-links a:hover { color: rgba(201,168,92,0.5); }
+
+.footer-copy {
+font-family: ‘Lato’, sans-serif;
+font-size: 0.48rem;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: rgba(250,240,225,0.15);
+}
+
+/* ── SLOW SCROLL REVEAL ── */
+.reveal {
+opacity: 0;
+transform: translateY(14px);
+transition: opacity 2.6s cubic-bezier(0.16, 1, 0.3, 1),
+transform 2.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-fade {
+opacity: 0;
+transition: opacity 3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-fade.visible { opacity: 1; }
+
+/* Stagger for three items */
+.three-item:nth-child(1) { transition-delay: 0s; }
+.three-item:nth-child(2) { transition-delay: 0.7s; }
+.three-item:nth-child(3) { transition-delay: 1.4s; }
+
+/* ── KEYFRAMES ── */
+@keyframes softFade {
+from { opacity: 0; }
+to   { opacity: 1; }
+}
+
+@keyframes wordRise {
+from { opacity: 0; transform: translateY(18px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ruleGrow {
+from { width: 0; }
+to   { width: 55%; }
+}
+
+@keyframes stemGrow {
+from { height: 0; opacity: 0; }
+to   { height: 64px; opacity: 1; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+.full-section, #three { padding: 6rem 1.5rem; }
+#image-break { padding: 5rem 1.5rem; min-height: 45vh; }
+footer { padding: 2.5rem 1.5rem; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <span class="nav-inner">Intentional Love &nbsp;·&nbsp; Early Access</span>
+</nav>
+
+<!-- ── HERO ── -->
+
+<section class="full-section" id="hero">
+
+<span class="hero-title">Cultivate</span>
+
+  <div class="hero-rule"></div>
+
+  <div class="hero-tagline">
+    <span class="hero-tagline-main">the love you deserve</span>
+    <span class="hero-tagline-sub">A curated world for intentional singles &amp; couples</span>
+  </div>
+
+  <div class="hero-form">
+    <span class="form-eyebrow">Join the waitlist</span>
+    <div class="form-row" id="formRow">
+      <input type="email" id="emailInput" placeholder="Your email address" autocomplete="email">
+      <button onclick="handleSubmit()">Reserve My Spot</button>
+    </div>
+    <p class="form-note">No spam. Just curated experiences worth your time.</p>
+    <div class="success-msg" id="successMsg">
+      <p>You're on the list.</p>
+      <span>We'll be in touch with something worth opening.</span>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Discover</span>
+    <div class="scroll-stem"></div>
+  </div>
+
+</section>
+
+<!-- ── SECTION A — POEM ── -->
+
+<section class="full-section" id="poem">
+
+<span class="section-eyebrow reveal">— Intentional Love —</span>
+
+  <h2 class="section-heading reveal" style="transition-delay:0.4s">
+    Some things were<br>always yours.<br>
+    <em>The feeling of being truly known.</em>
+  </h2>
+
+  <div class="gold-line reveal" style="transition-delay:0.8s"></div>
+
+  <p class="section-body reveal" style="transition-delay:1s">
+    Not the version of love that rushes.<br>
+    Not the swipe, the scroll, the endless noise of almost.<br><br>
+    The kind that unfolds slowly —<br>
+    in the right room, with the right feeling,<br>
+    at exactly the right moment.<br><br>
+    That is what we are building here.
+  </p>
+
+<a class="btn-pill btn-pill-gold reveal" style="transition-delay:1.5s">Join the Waitlist</a>
+
+</section>
+
+<!-- ── IMAGE BREAK ── -->
+
+<div id="image-break">
+  <div class="caption reveal-fade">
+    <p>Where love meets intention,<br>something real begins.</p>
+    <span>House of Lamoure × Cultivate</span>
+  </div>
+</div>
+
+<!-- ── SECTION C — THREE ── -->
+
+<section id="three" class="full-section">
+
+<span class="section-eyebrow reveal">— What Cultivate Offers —</span>
+
+  <div class="three-list">
+    <div class="three-item reveal">
+      <span class="three-num">01 &nbsp;·&nbsp; Discover</span>
+      <h3 class="three-title">What <em>matters</em></h3>
+      <p class="three-body">
+        A free, curated newsletter surfacing the experiences,
+        places, and moments worth your time —
+        hand-selected for intentional singles and couples.
+      </p>
+    </div>
+
+```
+<div class="three-item reveal">
+  <span class="three-num">02 &nbsp;·&nbsp; Access</span>
+  <h3 class="three-title">What's <em>exclusive</em></h3>
+  <p class="three-body">
+    Members unlock private pricing from our Founders Circle partners —
+    the businesses that believe love is worth investing in.
+  </p>
+</div>
+
+<div class="three-item reveal">
+  <span class="three-num">03 &nbsp;·&nbsp; Belong</span>
+  <h3 class="three-title">To something <em>real</em></h3>
+  <p class="three-body">
+    A community built not on algorithms,
+    but on the shared belief that
+    the right environment can change everything.
+  </p>
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- ── MANIFESTO ── -->
+
+<section class="full-section" id="manifesto">
+
+<span class="section-eyebrow reveal">— Our Belief —</span>
+
+  <div class="gold-line reveal" style="transition-delay:0.3s"></div>
+
+  <p class="manifesto-quote reveal" style="transition-delay:0.6s">
+    "We're not building a discovery app.<br>
+    We're building a world where connection<br>
+    is experienced, not just scrolled."
+  </p>
+
+<span class="manifesto-attr reveal" style="transition-delay:1s">The Intentional Love Manifesto</span>
+
+</section>
+
+<!-- ── CTA ── -->
+
+<section class="full-section" id="cta">
+
+<span class="section-eyebrow reveal">— You Were Always Worthy —</span>
+
+  <h2 class="section-heading reveal" style="transition-delay:0.4s">
+    Love is worth<br><em>investing in.</em>
+  </h2>
+
+  <div class="gold-line reveal" style="transition-delay:0.8s"></div>
+
+  <p class="section-body reveal" style="transition-delay:1s">
+    Be first to access curated date nights,<br>
+    intimate experiences, and a community<br>
+    that takes connection seriously.<br><br>
+    Members receive exclusive access<br>
+    before public launch.
+  </p>
+
+  <div class="hero-form reveal" style="transition-delay:1.4s; opacity:1; animation:none; margin-top:0;">
+    <span class="form-eyebrow">Secure your spot</span>
+    <div class="form-row" id="formRow2">
+      <input type="email" id="emailInput2" placeholder="Your email address" autocomplete="email">
+      <button onclick="handleSubmit2()">Join Cultivate</button>
+    </div>
+    <p class="form-note">Free to join. Upgrade to member access anytime.</p>
+    <div class="success-msg" id="successMsg2" style="margin-top:1rem;">
+      <p>Welcome to Cultivate.</p>
+      <span>Something beautiful is coming your way.</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── FOOTER ── -->
+
+<footer>
+  <span class="footer-brand">Cultivate × Intentional Love</span>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Pinterest</a>
+    <a href="#">House of Lamoure</a>
+  </div>
+  <span class="footer-copy">© 2026 · All rights reserved</span>
+</footer>
+
+<script>
+  function handleSubmit() {
+    const email = document.getElementById('emailInput').value;
+    if (!email || !email.includes('@')) {
+      document.getElementById('emailInput').placeholder = 'Please enter a valid email';
+      return;
+    }
+    document.getElementById('formRow').style.display = 'none';
+    document.querySelector('#hero .form-eyebrow').style.display = 'none';
+    document.querySelector('#hero .form-note').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+
+  function handleSubmit2() {
+    const email = document.getElementById('emailInput2').value;
+    if (!email || !email.includes('@')) {
+      document.getElementById('emailInput2').placeholder = 'Please enter a valid email';
+      return;
+    }
+    document.getElementById('formRow2').style.display = 'none';
+    document.getElementById('successMsg2').style.display = 'block';
+  }
+
+  // Slow reveal — begins the moment element barely enters viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('.reveal, .reveal-fade')
+    .forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
